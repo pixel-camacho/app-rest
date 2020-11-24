@@ -1,38 +1,23 @@
 // requere
 require('./config/config');
-const express =  require('express');
+const express  = require('express');
+const mongoose = require('mongoose');
 const app = express();
 
 // midleware
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-app.get('/usuario',(req,res) =>{
-    res.json('get Usuario');
-})
-app.post('/usuario',(req,res) =>{
-    let body = req.body;
+// routes
+app.use(require('./routes/usuario'));
 
-    if(body.nombre === undefined)
-    {
-        res.status(400).json({
-            ok: false,
-            mensaje: 'El nombre es requerido'
-        }); 
-    }else{
-        res.json({
-          persona: body
-        });
-    }
-})
-app.put('/usuario',(req,res) =>{
-    res.json('puth Usario');
-})
-app.delete('/usuario/:id',(req,res) =>{
-    let id =  req.params.id
-    res.json({
-        id
-    })
-})
+mongoose.connect('mongodb://127.0.0.1:27017/cafe',{
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+}, (err) =>{
+    if(err) throw err;
+    console.log('Base de datos ONLINE!')
+});
 
 app.listen(process.env.PORT, () => console.log('Escuchando puerto: ',process.env.PORT));
