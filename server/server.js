@@ -11,7 +11,7 @@ app.use(express.json());
 // routes
 app.use(require('./routes/usuario'));
 
-mongoose.connect('mongodb://127.0.0.1:27017/cafe',{
+mongoose.connect(process.env.URL_DB,{
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
