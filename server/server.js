@@ -8,8 +8,8 @@ const app = express();
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-// routes
-app.use(require('./routes/usuario'));
+// routes globales
+app.use(require('./routes/index'));
 
 mongoose.connect(process.env.URL_DB,{
     useNewUrlParser: true,
